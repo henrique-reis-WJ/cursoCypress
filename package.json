@@ -1,0 +1,14 @@
+{
+  "name": "curso-qaninja",
+  "version": "1.0.0",
+  "description": "Curso Cypress QA Ninja",
+  "main": "index.js",
+  "devDependencies": {
+    "cypress": "^9.0.0"
+  },
+  "scripts": {
+    "test": "npx cypress open"
+  },
+  "author": "Henrique",
+  "license": "MIT"
+}
