@@ -2,8 +2,11 @@ describe('Realizar Cadastro', () =>
 {
     it('Criar Cadastro', () =>
     {
+        // ACESSAR PAGINA INICIAL //
         cy.viewport(1280, 768)
         cy.visit('https://buger-eats.vercel.app')
+
+        // CLICAR BOTÃO DE CADASTRO // 
         cy.get('a[href="/deliver"]').click()
         cy.get('#page-deliver form h1').should('have.text', 'Cadastre-se para  fazer entregas')
 
@@ -20,7 +23,10 @@ describe('Realizar Cadastro', () =>
                     rua: 'Avenida José Muniz Ribeiro',
                     bairro: 'Vila Paranaguá',
                     cidade: 'São Paulo/SP'
-                }
+                },
+
+            veiculo: 'Bicicleta',
+            cnh: '/images/cnh-digital.jpg'
         
         }
 
@@ -38,8 +44,9 @@ describe('Realizar Cadastro', () =>
         cy.get('input[name="address"]').should('have.value', entregador.localização.rua)
         cy.get('input[name="district"]').should('have.value', entregador.localização.bairro)
         cy.get('input[name="city-uf"]').should('have.value', entregador.localização.cidade)
+        
+        cy.contains('.delivery-method li', entregador.veiculo).click()
 
-
-
+        cy.get('input[accept^="image"]').attachFile(entregador.cnh)
     })
 })
