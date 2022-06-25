@@ -1,3 +1,5 @@
 {
-    
-}
+    "viewportWidth": 1280,
+    "viewportHeight": 768,
+    "baseUrl": "https://buger-eats.vercel.app" 
+  }

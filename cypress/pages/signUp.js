@@ -1,8 +1,7 @@
 class SignUpPage {
     go() 
     {
-        cy.viewport(1280, 768)
-        cy.visit('https://buger-eats.vercel.app')
+        cy.visit('/')
         cy.get('a[href="/deliver"]').click()
         cy.get('#page-deliver form h1').should('have.text', 'Cadastre-se para  fazer entregas')
     }
