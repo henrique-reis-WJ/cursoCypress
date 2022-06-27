@@ -1,65 +1,33 @@
-import SignUpPage from '../pages/signUp' 
+import signUp from '../pages/signUpPage'
 
 describe('Realizar Cadastro', () => {
-    it('Criar Cadastro com Sucesso', () => 
+
+    beforeEach(function()
     {
-        var signUp = new SignUpPage()
+        cy.fixture('deliver').then((del)=> 
+        {
+            this.deliver = del
+        })
+
+        cy.fixture('messages').then((msn)=> 
+        {
+            this.messages = msn
+        })
+    })
+
+    it('Criar Cadastro com Sucesso', function() 
+    {
         signUp.go()
-
-        var deliver = {
-            name: 'Henrique Ribeiro', 
-            cpf: '00000000011', 
-            email: 'henrique.reis@webjump.com.br', 
-            whatsapp: '11987654321',
-
-            locate: 
-            {
-                postalcode: '03807010',
-                number: '200',
-                street: 'Avenida José Muniz Ribeiro',
-                bairro: 'Vila Paranaguá',
-                city: 'São Paulo/SP'
-            },
-
-            deliveryMethod: 'Bicicleta',
-            cnh: '/images/cnh-digital.jpg'
-        }
-
-        signUp.fillForm(deliver)
+        signUp.fillForm(this.deliver.signUpOK)
         signUp.submit()
-        
-        const expectedMessage = 'Recebemos os seus dados. Fique de olho na sua caixa de email, pois e em breve retornamos o contato.'
-        signUp.modalContentShouldBe(expectedMessage)
+        signUp.modalContentShouldBe(this.messages.sucessSignUp)
     })
     
-    it('Cadastro CPF Inválido', () => 
+    it('Cadastro CPF Inválido', function() 
     {
-        var signUp = new SignUpPage()
         signUp.go()
-
-        var deliver = {
-            name: 'Henrique Ribeiro',
-            cpf: '000000000kk',
-            email: 'henrique.reis@webjump.com.br',
-            whatsapp: '11987654321',
-
-            locate: {
-                postalcode: '03807010',
-                number: '200',
-                street: 'Avenida José Muniz Ribeiro',
-                bairro: 'Vila Paranaguá',
-                city: 'São Paulo/SP'
-            },
-
-            deliveryMethod: 'Bicicleta',
-            cnh: '/images/cnh-digital.jpg'
-
-        }
-
-        signUp.fillForm(deliver)
+        signUp.fillForm(this.deliver.cpf_inval)
         signUp.submit()
-
-        const errorMessage = 'Oops! CPF inválido' 
-        signUp.modalErrorMessage(errorMessage)
+        signUp.modalErrorMessage(this.messages.cpf_inv_msn)
     })
 })
